@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Customer Feedback Form</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&family=Noto+Sans+Ethiopic:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      font-family: "Poppins", "Noto Sans Ethiopic", sans-serif;
+      background: linear-gradient(135deg, #e3f2fd, #bbdefb);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+    }
+
+    .container {
+      background: rgb(140, 221, 246);
+      padding: 30px 40px;
+      border-radius: 20px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+      width: 90%;
+      max-width: 650px;
+      position: relative;
+    }
+
+    h1, h2 {
+      text-align: center;
+      color: #0d47a1;
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      font-weight: 500;
+      margin-bottom: 6px;
+      color: #1a237e;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="number"],
+    select,
+    textarea {
+      width: 100%;
+      padding: 10px;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+      margin-bottom: 15px;
+      font-size: 15px;
+      transition: 0.3s;
+    }
+
+    input:focus,
+    select:focus,
+    textarea:focus {
+      outline: none;
+      border-color: #0d47a1;
+      box-shadow: 0 0 5px #90caf9;
+    }
+
+    p {
+      font-weight: 600;
+      color: #0d47a1;
+      margin-top: 20px;
+    }
+
+    label input[type="radio"] {
+      margin-right: 8px;
+    }
+
+    button[type="submit"] {
+      display: block;
+      width: 100%;
+      padding: 12px;
+      background: #0d47a1;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    button[type="submit"]:hover {
+      background: #1565c0;
+    }
+
+    #langToggle {
+      position: absolute;
+      top: 20px;
+      right: 30px;
+      background: #1976d2;
+      color: white;
+      border: none;
+      padding: 8px 14px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 14px;
+      transition: background 0.3s;
+    }
+
+    #langToggle:hover {
+      background: #0d47a1;
+    }
+
+    #thankYouMessage {
+      text-align: center;
+      color: #2e7d32;
+      font-weight: bold;
+      margin-top: 20px;
+      display: none;
+    }
+
+    @media (max-width: 600px) {
+      .container {
+        padding: 20px;
+      }
+      h1, h2 {
+        font-size: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <button id="langToggle">Switch to Amharic</button>
+    <h1 id="formTitle">Customer Feedback Form</h1>
+
+    <form action="https://formsubmit.co/haimanotgolbo@gmail.com" method="POST">
+      <label id="nameLabel" for="name">Name:</label>
+      <input type="text" id="name" name="name" required placeholder="Enter your name">
+
+      <label id="emailLabel" for="email">Email:</label>
+      <input type="email" id="email" name="email" placeholder="Enter your email">
+
+      <label id="phoneLabel" for="phone">Phone:</label>
+      <input type="number" id="phone" name="phone" required placeholder="Enter your phone number">
+
+      <input type="hidden" name="_next" value="https://yourdomain.co/thanks.html">
+      <input type="hidden" name="_subject" value="New Feedback Submission">
+      <input type="hidden" name="_cc" value="another@email.com,yetanother@email.com">
+      <input type="hidden" name="_captcha" value="false">
+      <input type="hidden" name="_autoresponse" value="Thank you for your feedback! We will review it soon.">
+      <input type="hidden" name="_template" value="table">
+
+      <label id="countryLabel" for="country">Country:</label>
+      <select id="country" name="country" required>
+        <option value="">Select your country</option>
+        <option value="Ethiopia">Ethiopia</option>
+        <option value="Kenya">Kenya</option>
+        <option value="USA">United States</option>
+        <option value="UK">United Kingdom</option>
+        <option value="Germany">Germany</option>
+        <option value="Brazil">Brazil</option>
+        <option value="Japan">Japan</option>
+        <option value="India">India</option>
+        <option value="China">China</option>
+        <option value="Other">Other</option>
+      </select>
+
+      <label id="feedbackLabel" for="feedback">Your Feedback:</label>
+      <textarea id="feedback" name="feedback" rows="5" required placeholder="Enter your feedback"></textarea>
+
+      <h2 id="surveyTitle">Post-Delivery Feedback Survey (7 Questions)</h2>
+
+      <div id="surveyQuestions"></div>
+
+      <button type="submit">Submit Feedback</button>
+    </form>
+
+    <div id="thankYouMessage">Thank you for your feedback! 🙏</div>
+  </div>
+
+  <script>
+    const surveyQuestionsEn = [
+      "How would you rate the overall shipment condition upon arrival?",
+      "How satisfied are you with the communication and documentation process?",
+      "Did the quality meet your expectations (clean cup, grading accuracy, moisture)?",
+      "Were there any issues or delays during shipment or customs clearance?",
+      "Would you recommend us to other buyers?",
+      "Are there other services you would like us to offer or explore?",
+      "What is one thing we could do to significantly improve your experience or our partnership?"
+    ];
+
+    const surveyQuestionsAm = [
+      "ጭነቱ ሲደርስ አጠቃላይ ሁኔታውን እንዴት ይገመግማሉ?",
+      "በመገናኛ እና ሰነዶች አያያዝ ሂደት ምን ያህል ረክተዋል?",
+      "ጥራቱ የእርስዎን ግምቶች (ንፅህና፣ ደረጃ ትክክለኛነት፣ እርጥበት) አሟልቷል?",
+      "በመላኪያ ወይም በጉምሩክ ማረጋገጫ ወቅት ምንም ችግሮች ወይም መዘግየቶች ነበሩ?",
+      "አገልግሎታችንን ለሌሎች ገዥዎች ይመክራሉ?",
+      "ሌሎች አገልግሎቶችን እንድንሰጥ ወይም እንድንመረምር ይፈልጋሉ?",
+      "የእርስዎን ተሞክሮ ወይም አጋርነታችንን ለማሻሻል ምን አንድ ነገር ማድረግ እንችላለን?"
+    ];
+
+    const normalRatingsEn = ["Very Poor", "Fair", "Good", "Very Good", "Excellent"];
+    const yesMaybeNoEn = ["Yes", "Maybe", "No"];
+    const normalRatingsAm = ["በጣም ደካማ", "መካከለኛ", "ጥሩ", "በጣም ጥሩ", "ምርጥ"];
+    const yesMaybeNoAm = ["አዎ", "ምናልባት", "አይ"];
+
+    const container = document.getElementById("surveyQuestions");
+
+    function renderQuestions(lang = "en") {
+      container.innerHTML = "";
+      const qList = lang === "en" ? surveyQuestionsEn : surveyQuestionsAm;
+      const normal = lang === "en" ? normalRatingsEn : normalRatingsAm;
+      const ynm = lang === "en" ? yesMaybeNoEn : yesMaybeNoAm;
+
+      qList.forEach((q, i) => {
+        const fieldset = document.createElement("fieldset");
+        const legend = document.createElement("legend");
+        legend.textContent = `${i + 1}. ${q}`;
+        fieldset.appendChild(legend);
+
+        const options = i === 4 ? ynm : normal;
+
+        options.forEach((labelText) => {
+          const label = document.createElement("label");
+          label.innerHTML = `<input type="radio" name="q${i + 1}" value="${labelText}" required> ${labelText}`;
+          fieldset.appendChild(label);
+          fieldset.appendChild(document.createElement("br"));
+        });
+
+        container.appendChild(fieldset);
+      });
+    }
+
+    // Render English by default
+    renderQuestions("en");
+
+    const langBtn = document.getElementById("langToggle");
+    let isAmharic = false;
+
+    langBtn.addEventListener("click", () => {
+      isAmharic = !isAmharic;
+      document.documentElement.lang = isAmharic ? "am" : "en";
+
+      if (isAmharic) {
+        document.getElementById("formTitle").textContent = "የደንበኛ አስተያየት ቅጽ";
+        document.getElementById("nameLabel").textContent = "ስም፡";
+        document.getElementById("emailLabel").textContent = "ኢሜይል፡";
+        document.getElementById("phoneLabel").textContent = "ስልክ፡";
+        document.getElementById("countryLabel").textContent = "ሀገር፡";
+        document.getElementById("feedbackLabel").textContent = "አስተያየትዎ፡";
+        document.getElementById("surveyTitle").textContent = "የመላኪያ ተከታይ አስተያየት ዳሰሳ (7 ጥያቄዎች)";
+        document.querySelector("button[type='submit']").textContent = "አስተያየት ላክ";
+        document.getElementById("thankYouMessage").textContent = "ለአስተያየትዎ እናመሰግናለን! ";
+        document.getElementById("country").options[0].textContent = "ሀገር ይምረጡ";
+        document.getElementById("name").placeholder = "ስምዎን ያስገቡ";
+        document.getElementById("email").placeholder = "ኢሜይልዎን ያስገቡ";
+        document.getElementById("phone").placeholder = "ስልክ ቁጥርዎን ያስገቡ";
+        document.getElementById("feedback").placeholder = "አስተያየትዎን ያስገቡ";
+        langBtn.textContent = "Switch to English";
+        renderQuestions("am");
+      } else {
+        document.getElementById("formTitle").textContent = "Customer Feedback Form";
+        document.getElementById("nameLabel").textContent = "Name:";
+        document.getElementById("emailLabel").textContent = "Email:";
+        document.getElementById("phoneLabel").textContent = "Phone:";
+        document.getElementById("countryLabel").textContent = "Country:";
+        document.getElementById("feedbackLabel").textContent = "Your Feedback:";
+        document.getElementById("surveyTitle").textContent = "Post-Delivery Feedback Survey (7 Questions)";
+        document.querySelector("button[type='submit']").textContent = "Submit Feedback";
+        document.getElementById("thankYouMessage").textContent = "Thank you for your feedback! 💖";
+        document.getElementById("country").options[0].textContent = "Select your country";
+        document.getElementById("name").placeholder = "Enter your name";
+        document.getElementById("email").placeholder = "Enter your email";
+        document.getElementById("phone").placeholder = "Enter your phone number";
+        document.getElementById("feedback").placeholder = "Enter your feedback";
+        langBtn.textContent = "Switch to Amharic";
+        renderQuestions("en");
+      }
+    });
+
+    // Handle form submission
+    document.querySelector("form").addEventListener("submit", (e) => {
+      // Uncomment the following line for testing to prevent actual submission
+      // e.preventDefault();
+
+      // Show thank you message (optional, if not relying on _next URL)
+      document.getElementById("thankYouMessage").style.display = "block";
+      document.querySelector("form").style.display = "none";
+    });
+  </script>
+</body>
+</html>

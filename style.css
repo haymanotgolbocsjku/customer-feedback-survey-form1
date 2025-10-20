@@ -1,0 +1,161 @@
+/* 🌸 General Page Setup */
+body {
+  font-family: "Poppins", sans-serif;
+  background: linear-gradient(135deg, #a8c0d1, #bbdefb);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  margin: 0;
+  padding: 20px;
+}
+
+/* 💎 Main Container */
+.container {
+  background: #ffffff;
+  padding: 40px 50px;
+  border-radius: 25px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  width: 100%;
+  max-width: 700px;
+  position: relative;
+  transition: all 0.3s ease-in-out;
+}
+.container:hover {
+  transform: translateY(-5px);
+}
+
+/* 🩵 Titles */
+h1, h2 {
+  text-align: center;
+  color: #0d47a1;
+  margin-bottom: 20px;
+  font-weight: 700;
+}
+
+h2 {
+  font-size: 20px;
+  color: #1565c0;
+}
+
+/* 📝 Labels */
+label {
+  display: block;
+  font-weight: 500;
+  margin-bottom: 6px;
+  color: #1a237e;
+  transition: color 0.3s;
+}
+
+label:hover {
+  color: #0d47a1;
+}
+
+/* ✨ Input Fields */
+input[type="text"],
+input[type="email"],
+input[type="number"],
+select,
+textarea {
+  width: 100%;
+  padding: 12px;
+  border-radius: 12px;
+  border: 1px solid #ccc;
+  margin-bottom: 15px;
+  font-size: 15px;
+  transition: all 0.3s ease;
+  background-color: #fafafa;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+  border-color: #0d47a1;
+  box-shadow: 0 0 8px #90caf9;
+  background-color: #ffffff;
+}
+
+/* ⭐ Rating Questions */
+p {
+  font-weight: 600;
+  color: #0d47a1;
+  margin-top: 20px;
+}
+
+label input[type="radio"] {
+  margin-right: 8px;
+}
+
+/* 💬 Textarea */
+textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+/* 🎯 Submit Button */
+button[type="submit"] {
+  display: block;
+  width: 100%;
+  padding: 14px;
+  background: linear-gradient(90deg, #0d47a1, #1565c0);
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+button[type="submit"]:hover {
+  background: linear-gradient(90deg, #1565c0, #1e88e5);
+  transform: scale(1.03);
+}
+
+/* 🌍 Language Toggle Button */
+#langToggle {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  background: #1976d2;
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+#langToggle:hover {
+  background: #0d47a1;
+  transform: scale(1.05);
+}
+
+/* 💚 Thank You Message */
+#thankYouMessage {
+  text-align: center;
+  color: #2e7d32;
+  font-weight: bold;
+  margin-top: 25px;
+  display: none;
+  font-size: 18px;
+}
+
+/* 📱 Responsive for Mobile */
+@media (max-width: 600px) {
+  .container {
+    padding: 25px;
+  }
+
+  h1, h2 {
+    font-size: 18px;
+  }
+
+  button[type="submit"], #langToggle {
+    font-size: 13px;
+    padding: 10px;
+  }
+}
